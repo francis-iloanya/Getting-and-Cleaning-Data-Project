@@ -1,0 +1,32 @@
+The run_analysis.R script cleans the data in line with the procedure set out in the project requirements
+
+The dataset was manually downloaded with this link, to my personal device
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip  
+
+Each piece of data was read into R Studio using read.table() function with col.names argument used.
+
+Assign each data to variables then merges the training and the test sets to create one data set...
+
+X :x_train and x_test using rbind() function
+Y :y_train and y_test using rbind() function
+ID (can be viewed as participants identifiers): subject_train and subject_test using rbind() function
+TidyData (10299 rows, 563 column) is created by merging Subject, Y and X using cbind() function
+
+Retains only the columns interested in which are cols that contain mean or std, also subject and code...
+TidyData (10299 rows, 88 columns) is created by subsetting Merged_Data, selecting only columns: subject, code and the measurements on the mean and standard deviation (std) for each measurement
+
+Uses descriptive activity names to name the activities in the data set
+Done by using join function, no need to state x as all connected by piping "%>%"
+* for neatness, moves activity column to left hand side of dataset and removes "code" columns as is now redundant with full activity names also present *
+
+Changes notation of features to be more intuitive using gsub regular expression
+All Acc in column’s name replaced by Accelerometer
+All Gyro in column’s name replaced by Gyroscope
+All BodyBody in column’s name replaced by Body
+All Mag in column’s name replaced by Magnitude
+All start with character f in column’s name replaced by Frequency
+All start with character t in column’s name replaced by Time
+
+Finally creates FinalData by first grouping by activity and subject then simply taking the means
+
+Export to personal device.
